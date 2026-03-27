@@ -1,0 +1,65 @@
+# 🚲 VeloCity Retail : End-to-End Data Engineering & Analytics Project
+
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)
+![Power BI](https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=powerbi&logoColor=black)
+
+## 📌 Contexte Métier
+**VeloCity** est une chaîne de magasins de vélos en pleine expansion. La direction rencontrait des difficultés pour consolider ses données éparpillées et analyser ses performances de vente. 
+
+**L'objectif de ce projet est de construire une pipeline Data complète de A à Z :**
+1. Création d'une base de données relationnelle robuste.
+2. Nettoyage et enrichissement des données de vente.
+3. Création d'un tableau de bord interactif d'aide à la décision pour le PDG.
+
+---
+
+## 🏗️ Architecture des Données (Modélisation SQL)
+Le dataset brut était composé de 9 fichiers CSV distincts. J'ai modélisé et implémenté une base de données relationnelle complète sous **PostgreSQL**, en respectant les contraintes d'intégrité (Primary Keys, Foreign Keys) et les bons types de données.
+
+Les 9 tables créées sont : 
+- **Tables Maîtres :** `stores`, `customers`, `brands`, `categories`
+- **Tables Intermédiaires :** `staffs`, `products`
+- **Tables de faits (Transactions) :** `orders`, `order_items`, `stocks`
+
+*Une "Master Query" complexe (incluant 7 jointures `JOIN`) a été développée pour aplatir la donnée et l'exporter en vue de son analyse.*
+
+---
+
+## ⚙️ Pipeline & Feature Engineering (Python)
+L'aplatissement SQL a généré la table de base, mais les indicateurs financiers n'étaient pas calculés. J'ai utilisé **Python et Pandas** (via un Jupyter Notebook) pour le traitement métier :
+
+- **Feature Engineering :** Création de la métrique clé `final_revenue` (Chiffre d'Affaires Net) en intégrant le prix d'origine, la quantité vendue et le taux de remise (`discount`).
+- **Data Wrangling :** Nettoyage des types de données, typage des dates (`datetime`) pour permettre des analyses temporelles (Séries chronologiques).
+- **Catégorisation :** Segmentation des ventes (Standard vs VIP).
+
+---
+
+## 📊 Data Visualisation (Power BI)
+La donnée enrichie a été connectée à **Power BI** via Power Query (pour sécuriser le typage des décimales et des dates).
+
+**Indicateurs clés du Dashboard :**
+- **KPI Global :** Chiffre d'affaires net total généré.
+- **Top Performers (Magasins) :** Comparatif du CA par magasin (Baldwin Bikes vs Santa Cruz Bikes vs Rowlett Bikes).
+- **Analyse RH :** Suivi des performances individuelles des vendeurs.
+
+---
+
+## 📁 Arborescence du Projet
+
+```text
+📁 Velocity_Retail_Project/
+│
+├── 📁 data/                  # Fichiers sources CSV bruts (< 10Mo)
+├── 📁 sql/
+│   ├── 1_create_tables.sql   # Script DDL (Architecture et contraintes)
+│   └── 2_master_query.sql    # Requête d'extraction avec 7 JOIN
+│
+├── 📁 notebooks/
+│   └── data_processing.ipynb # Script de Feature Engineering avec Pandas
+│
+├── 📄 master_table_velocity.csv  # Export brut depuis PostgreSQL
+├── 📄 velocity_powerbi_ready.csv # Fichier final enrichi par Python
+├── 📊 Velocity_Dashboard.pbix    # Tableau de bord Power BI (Work in progress)
+└── 📄 README.md              # Documentation du projet
