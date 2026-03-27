@@ -62,4 +62,7 @@ La donnée enrichie a été connectée à **Power BI** via Power Query (pour sé
 ├── 📄 master_table_velocity.csv  # Export brut depuis PostgreSQL
 ├── 📄 velocity_powerbi_ready.csv # Fichier final enrichi par Python
 ├── 📊 Velocity_Dashboard.pbix    # Tableau de bord Power BI (Work in progress)
-└── 📄 README.md              # Documentation du projet
+└── 📄 README.md              # Documentation du projet# 🚲 VeloCity Retail : End-to-End Data Engineering & Analytics Project
+
+```
+Auteur : Edris Youssef
